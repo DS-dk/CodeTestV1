@@ -1,0 +1,37 @@
+Hi, Hope you are doing well. Here are my thoughts about the Code Review:
+
+Thoughts About the Code &  What makes it amazing code.:
+
+   As it looks like, the developer used the Repository method in this project,
+   The repository design pattern allows you to use objects without having to know how these objects are persisted. Essentially it is an abstraction of the data layer.
+    This means that your business logic doesn’t need to know how data is retrieved or what the source of the data is. The business logic relies on the repository to retrieve the correct data.
+    This makes our code more robust to changes, such as if a decision was made later on to switch to a data source that isn't supported by Eloquent.
+    It also helps with keeping the code organized and avoiding duplication, as database-related logic is kept in one place. While this benefit is not immediately apparent in small projects, it becomes more observable in large-scale projects which have to be maintained for many years.
+
+
+what makes it terrible code:
+
+    A misconception that I see a lot regarding repository's pattern is that repositories are being implemented in such a way to create or update records. This is not what a repository should do. Repositories shouldn’t create or update data, but should only be used to retrieve data.
+    Also when I check the code in detail, there are lots of syntax mistakes, wrong conditions, and most important things no data validations neither in the controller nor in Repository. The response format is also not set properly in Repositories.
+    Without checking the data whether it exists or not we perform operations on it. And I also saw multiple returns at the same line, like on line 10 return true, line 11 return false. which is also wrong, only one return will work at a time. Also lots of eloquent mistakes, and an outdated laravel version
+
+How would you have done it?
+
+    . For long-term projects, the Laravel version should be up-to-date
+    . Eloquent should be proper implement according to the laravel version
+    . Repositories should not have the create update records methods.
+    . If we have the base repository then we also need to create two response methods, One for Success, and One for Error. So every time we are going to send the data to the controller it should be sent in the same format every time, either it's a success or an error
+    . if else conditions and switch cases should be proper implement, find their need and implement them.
+    . We need to use the collection method
+    . Use the dead block to clarify things
+    . Have a single source of truth for validation rules
+    . Use strict comparison (as we not used in this project)
+    . Consider using helpers instead of facades. They can clean things up
+    . Use short operators ($foo = $foo == 'bar' ? 'bar' : false)
+    . Create query scopes for the complex where()s
+    . Try to avoid unnecessary nesting by returning a value early (which we need to improve in this code)
+
+
+
+Thanks & Regards
+Dawer Sohail
